@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOLLY CARS | Premium Car Rental</title>
   <link rel="stylesheet" href="./style.css">
-  <!-- Шрифт для премиального стиля -->
-  <link href="https://googleapis.com" rel="stylesheet">
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- ХЕДЕР (ГЛАВНЫЙ ЭКРАН) -->
   <header class="hero">
     <h1 class="logo">NOLLY CARS</h1>
     <p class="subtitle">Аренда автомобилей высшего класса. Превосходя ожидания.</p>
@@ -18,26 +16,27 @@
 
   <!-- ОПРОС -->
   <section class="poll-section">
-    <h2>Какая цель вашей идеальной поездки?</h2>
+    <h2>Подберите автомобиль под вашу цель</h2>
     <div class="poll-grid">
-      <button class="poll-btn" onclick="filterClass('business')">Деловая встреча</button>
-      <button class="poll-btn" onclick="filterClass('premium')">Статус и комфорт</button>
-      <button class="poll-btn" onclick="filterClass('ultima')">Жажда скорости и экзотики</button>
+      <button class="poll-btn" onclick="filterCars('business')">Деловая встреча</button>
+      <button class="poll-btn" onclick="filterCars('premium')">Статус и комфорт</button>
+      <button class="poll-btn" onclick="filterCars('ultima')">Жажда скорости</button>
+      <button class="poll-btn" onclick="filterCars('all')">Показать все</button>
     </div>
   </section>
 
-  <!-- СПИСОК АВТО -->
+  <!-- КАТАЛОГ МАШИН -->
   <main class="catalog">
-    <div class="cars-grid">
-      <!-- Карточки авто сгенерируются через JS -->
+    <div class="cars-grid" id="carsGrid">
+      <!-- Карточки авто сгенерируются через JavaScript -->
     </div>
   </main>
 
-  <!-- О НАС -->
+  <!-- СЕКЦИЯ О НАС -->
   <section class="about-section">
     <div class="about-content">
       <h2>О НАС</h2>
-      <p>NOLLY CARS — это бескомпромиссный консьерж-сервис в сфере элитного автопроката. Каждый автомобиль в нашем парке проходит ежедневный детейлинг и технический контроль.</p>
+      <p>NOLLY CARS — это бескомпромиссный консьерж-сервис в сфере элитного автопроката в столице. Каждый автомобиль в нашем парке проходит ежедневный детейлинг и строгий технический контроль перед выездом.</p>
       <address>
         <strong>Локация:</strong> г. Москва, Пресненская наб., 12 (Москва-Сити, Башня Федерация)<br>
         <strong>Контакты:</strong> +7 (495) 000-00-00 | info@nollycars.ru
@@ -46,25 +45,25 @@
   </section>
 
   <!-- ИИ БОТ КОНСУЛЬТАНТ -->
-  <div class="bot-trigger" id="botTrigger">
-    <span>ИИ Консультант</span>
+  <div class="bot-trigger" id="botTrigger" style="position: fixed; bottom: 30px; right: 30px; background: #c5a059; color: #000; padding: 15px 25px; border-radius: 4px; font-weight: 700; cursor: pointer; z-index: 1000; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">
+    <span>Задать вопрос ИИ</span>
   </div>
 
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-      <span>NOLLY AI</span>
-      <button id="closeChat">✕</button>
+  <div class="chat-window" id="chatWindow" style="position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: #0a0a0a; border: 1px solid rgba(255, 255, 255, 0.05); display: none; flex-direction: column; z-index: 1000;">
+    <div class="chat-header" style="background: #111; padding: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.03);">
+      <span style="font-weight: 700; color: #fff; letter-spacing: 1px;">NOLLY AI</span>
+      <button id="closeChat" style="background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem;">✕</button>
     </div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="msg bot-msg">Приветствую в NOLLY CARS. Какое авто вы ищете?</div>
+    <div class="chat-messages" id="chatMessages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: #ccc;">
+      <div style="background: rgba(255,255,255,0.02); padding: 10px; max-width: 85%;">Приветствую в NOLLY CARS. Какой класс автомобилей вас интересует?</div>
     </div>
-    <div class="chat-input-area">
-      <input type="text" id="chatInput" placeholder="Задайте вопрос...">
-      <button id="sendBtn">Отправить</button>
+    <div class="chat-input-area" style="display: flex; padding: 15px; border-top: 1px solid rgba(255,255,255,0.03);">
+      <input type="text" id="chatInput" placeholder="Спросите об авто..." style="flex: 1; background: transparent; border: none; color: #fff; outline: none; font-family: inherit;">
+      <button id="sendBtn" style="background: none; border: none; color: #c5a059; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Отправить</button>
     </div>
   </div>
 
-  <!-- Подключаем логику -->
+  <!-- Главный скрипт -->
   <script type="module" src="./app.js"></script>
 </body>
 </html>
