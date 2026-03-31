@@ -1,4 +1,4 @@
-// Инициализация плагина ScrollTrigger для GSAP (без импортов)
+// Инициализация плагина ScrollTrigger для GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 // 1. Инициализация Lenis (Плавный скролл)
@@ -57,7 +57,7 @@ function renderCars(cars) {
   });
 }
 
-// 4. Глобальный фильтр (для опроса)
+// 4. Глобальный фильтр (для опроса) - ПРИНУДИТЕЛЬНО В ОКНО WINDOW
 window.filterCars = function(className) {
   if (className === 'all') {
     renderCars(allCars);
@@ -75,11 +75,18 @@ const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const sendBtn = document.getElementById('sendBtn');
 
-botTrigger.addEventListener('click', () => chatWindow.style.display = 'flex');
-closeChat.addEventListener('click', () => chatWindow.style.display = 'none');
-
-sendBtn.addEventListener('click', sendMessage);
-chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+if (botTrigger) {
+  botTrigger.addEventListener('click', () => chatWindow.style.display = 'flex');
+}
+if (closeChat) {
+  closeChat.addEventListener('click', () => chatWindow.style.display = 'none');
+}
+if (sendBtn) {
+  sendBtn.addEventListener('click', sendMessage);
+}
+if (chatInput) {
+  chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+}
 
 function sendMessage() {
   const text = chatInput.value.trim();
@@ -123,4 +130,5 @@ function createMessage(text, type) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+// Запускаем загрузку
 fetchCars();
