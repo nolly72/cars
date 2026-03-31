@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Детали автомобиля | NOLLY CARS</title>
+  <link rel="stylesheet" href="./style.css">
+  <!-- Дополнительные точечные стили для страницы авто -->
+  <style>
+    .car-detail-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 50px;
+    }
+    @media (max-width: 900px) {
+      .car-detail-container { grid-template-columns: 1fr; }
+    }
+    /* Стили галереи */
+    .main-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+      transition: opacity 0.3s ease;
+    }
+    .thumbnails {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .thumb {
+      width: calc(33.333% - 10px);
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    .thumb:hover, .thumb.active {
+      opacity: 1;
+      border-color: var(--accent-gold);
+    }
+    /* Правая колонка с инфой */
+    .car-meta span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    .car-meta h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin: 10px 0 20px 0;
+    }
+    .car-desc {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    .specs-table td {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .specs-table td.label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .specs-table td.value {
+      color: var(--text-primary);
+      text-align: right;
+      font-weight: 700;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      transition: color 0.3s ease;
+    }
+    .back-btn:hover { color: var(--accent-gold); }
+    
+    .rent-btn {
+      width: 100%;
+      background-color: var(--accent-gold);
+      color: #000;
+      border: none;
+      padding: 20px;
+      font-family: inherit;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .rent-btn:hover { background-color: var(--accent-hover); }
+  </style>
+</head>
+<body>
+
+  <div style="padding: 40px 5%;">
+    <a href="/" class="back-btn">← Вернуться в каталог</a>
+    
+    <div class="car-detail-container" id="carDetailContainer">
+      <!-- Логика JS заполнит этот блок -->
+      <p style="color: var(--text-secondary);">Загрузка деталей автомобиля...</p>
+    </div>
+  </div>
+
+  <!-- Подключаем логику для страницы авто -->
+  <script type="module" src="./car.js"></script>
+</body>
+</html>
