@@ -1,14 +1,12 @@
-import Lenis from 'lenis';
+// Инициализация Lenis (для плавного скролла)
+if (typeof Lenis !== 'undefined') {
+  const lenis = new Lenis({ duration: 1.2 });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+}
 
-// 1. Инициализация Lenis (для сохранения плавного скролла)
-const lenis = new Lenis({ duration: 1.2 });
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
-
-// 2. Получаем ID машины из URL
 const urlParams = new URLSearchParams(window.location.search);
 const carId = urlParams.get('id');
-
 const container = document.getElementById('carDetailContainer');
 
 async function loadCarDetails() {
@@ -30,7 +28,6 @@ async function loadCarDetails() {
 }
 
 function renderCarPage(car) {
-  // Формируем HTML страницы
   container.innerHTML = `
     <!-- Левая колонка: ГАЛЕРЕЯ -->
     <div class="gallery-column">
@@ -64,27 +61,25 @@ function renderCarPage(car) {
           <td class="label">Разгон (0-100)</td>
           <td class="value">${car.specs.accel}</td>
         </tr>
+        <tr>
+          <td class="label" style="color: var(--accent-gold); font-weight: 700;">Стоимость</td>
+          <td class="value" style="color: var(--accent-gold); font-weight: 900;">${car.price}</td>
+        </tr>
       </table>
 
       <button class="rent-btn">Забронировать авто</button>
     </div>
   `;
 
-  // Делаем функцию смены картинок доступной глобально
   window.changeImage = function(element, src) {
     const mainImg = document.getElementById('mainImg');
-    
-    // Эффект плавного мерцания при смене фото
     mainImg.style.opacity = 0;
-    
     setTimeout(() => {
       mainImg.src = src;
       mainImg.style.opacity = 1;
     }, 200);
 
-    // Снимаем класс active со всех миниатюр
     document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-    // Вешаем на нажатую
     element.classList.add('active');
   };
 }

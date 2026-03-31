@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Детали автомобиля | NOLLY CARS</title>
   <link rel="stylesheet" href="./style.css">
-  <!-- Дополнительные точечные стили для страницы авто -->
   <style>
     .car-detail-container {
       max-width: 1200px;
@@ -18,7 +17,6 @@
     @media (max-width: 900px) {
       .car-detail-container { grid-template-columns: 1fr; }
     }
-    /* Стили галереи */
     .main-image {
       width: 100%;
       height: 500px;
@@ -44,7 +42,6 @@
       opacity: 1;
       border-color: var(--accent-gold);
     }
-    /* Правая колонка с инфой */
     .car-meta span {
       font-size: 0.8rem;
       font-weight: 700;
@@ -116,12 +113,11 @@
     <a href="/" class="back-btn">← Вернуться в каталог</a>
     
     <div class="car-detail-container" id="carDetailContainer">
-      <!-- Логика JS заполнит этот блок -->
       <p style="color: var(--text-secondary);">Загрузка деталей автомобиля...</p>
     </div>
   </div>
 
-  <!-- Подключаем логику для страницы авто -->
+  <script src="https://jsdelivr.net"></script>
   <script type="module" src="./car.js"></script>
 </body>
 </html>
