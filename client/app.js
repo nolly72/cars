@@ -1,7 +1,4 @@
-import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+// Инициализация плагина ScrollTrigger для GSAP (без импортов)
 gsap.registerPlugin(ScrollTrigger);
 
 // 1. Инициализация Lenis (Плавный скролл)
