@@ -1,73 +1,27 @@
 // Инициализация плагина ScrollTrigger для GSAP
-gsap.registerPlugin(ScrollTrigger);
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // 1. Инициализация Lenis (Плавный скролл)
-const lenis = new Lenis({ duration: 1.2 });
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+if (typeof Lenis !== 'undefined') {
+  const lenis = new Lenis({ duration: 1.2 });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+}
 
-let allCars = [];
-
-// 2. Запрос машин (без localhost, чтобы работало на Vercel)
+// 2. Запрос машин и передача их в глобальную функцию HTML
 async function fetchCars() {
   try {
     const response = await fetch('/api/cars');
-    allCars = await response.json();
-    renderCars(allCars);
+    allCars = await response.json(); // Наполняем глобальный массив в HTML
+    renderCars(allCars); // Вызываем функцию из HTML
   } catch (error) {
-    console.error("Ошибка загрузки:", error);
+    console.error("Ошибка загрузки авто:", error);
   }
 }
 
-// 3. Вывод карточек на страницу
-function renderCars(cars) {
-  const grid = document.getElementById('carsGrid');
-  grid.innerHTML = ''; 
-  
-  cars.forEach(car => {
-    const card = document.createElement('div');
-    card.className = 'car-card';
-    card.innerHTML = `
-      <div class="car-img">
-         <img src="${car.img}" alt="${car.name}">
-      </div>
-      <div class="car-info">
-         <span>${car.class}</span>
-         <h3>${car.name}</h3>
-         <button>Подробнее</button>
-      </div>
-    `;
-    
-    // Переход на страницу авто при клике
-    card.addEventListener('click', () => {
-      window.location.href = `/car.html?id=${car.id}`;
-    });
-    
-    grid.appendChild(card);
-  });
-
-  // Анимация GSAP
-  gsap.from('.car-card', {
-    y: 60,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: "power3.out",
-    scrollTrigger: { trigger: '#carsGrid', start: 'top 85%' }
-  });
-}
-
-// 4. Глобальный фильтр (для опроса) - ПРИНУДИТЕЛЬНО В ОКНО WINDOW
-window.filterCars = function(className) {
-  if (className === 'all') {
-    renderCars(allCars);
-  } else {
-    const filtered = allCars.filter(car => car.class === className);
-    renderCars(filtered);
-  }
-}
-
-// 5. Логика ИИ Чат-бота
+// 3. Логика ИИ Чат-бота
 const botTrigger = document.getElementById('botTrigger');
 const chatWindow = document.getElementById('chatWindow');
 const closeChat = document.getElementById('closeChat');

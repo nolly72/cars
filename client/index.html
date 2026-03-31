@@ -68,7 +68,62 @@
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
 
-  <!-- Главный скрипт (БЕЗ TYPE="MODULE") -->
+  <!-- Глобальные скрипты управления каталогом -->
+  <script>
+    let allCars = [];
+
+    // Отрисовка карточек
+    function renderCars(cars) {
+      const grid = document.getElementById('carsGrid');
+      if (!grid) return;
+      grid.innerHTML = ''; 
+      
+      cars.forEach(car => {
+        const card = document.createElement('div');
+        card.className = 'car-card';
+        card.innerHTML = `
+          <div class="car-img">
+             <img src="${car.img}" alt="${car.name}">
+          </div>
+          <div class="car-info">
+             <span>${car.class}</span>
+             <h3>${car.name}</h3>
+             <button>Подробнее</button>
+          </div>
+        `;
+        
+        card.addEventListener('click', () => {
+          window.location.href = `/car.html?id=${car.id}`;
+        });
+        
+        grid.appendChild(card);
+      });
+
+      // Анимация GSAP
+      if (typeof gsap !== 'undefined') {
+        gsap.from('.car-card', {
+          y: 60,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      }
+    }
+
+    // Глобальная функция фильтрации (Браузер точно её увидит!)
+    window.filterCars = function(className) {
+      if (className === 'all') {
+        renderCars(allCars);
+      } else {
+        const filtered = allCars.filter(car => car.class === className);
+        renderCars(filtered);
+      }
+    }
+  </script>
+
+  <!-- Внешний скрипт для ИИ бота и плавного скролла -->
   <script src="./app.js"></script>
 </body>
 </html>
