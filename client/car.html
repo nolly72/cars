@@ -6,118 +6,94 @@
   <title>Детали автомобиля | NOLLY CARS</title>
   <link rel="stylesheet" href="./style.css">
   <style>
-    .car-detail-container {
-      max-width: 1200px;
-      margin: 50px auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 50px;
-    }
-    @media (max-width: 900px) {
-      .car-detail-container { grid-template-columns: 1fr; }
-    }
-    .main-image {
-      width: 100%;
-      height: 500px;
-      object-fit: cover;
-      border: 1px solid var(--border-color);
-      transition: opacity 0.3s ease;
-    }
-    .thumbnails {
-      display: flex;
-      gap: 15px;
-      margin-top: 15px;
-    }
-    .thumb {
-      width: calc(33.333% - 10px);
-      height: 100px;
-      object-fit: cover;
-      cursor: pointer;
-      border: 1px solid var(--border-color);
-      opacity: 0.6;
-      transition: all 0.3s ease;
-    }
-    .thumb:hover, .thumb.active {
-      opacity: 1;
-      border-color: var(--accent-gold);
-    }
-    .car-meta span {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-    .car-meta h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      color: var(--text-primary);
-      margin: 10px 0 20px 0;
-    }
-    .car-desc {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 30px;
-    }
-    .specs-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 40px;
-    }
-    .specs-table td {
-      padding: 15px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .specs-table td.label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-    .specs-table td.value {
-      color: var(--text-primary);
-      text-align: right;
-      font-weight: 700;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-bottom: 30px;
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.8rem;
-      transition: color 0.3s ease;
-    }
+    .car-detail-container { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; }
+    @media (max-width: 900px) { .car-detail-container { grid-template-columns: 1fr; } }
+    .main-image { width: 100%; height: 500px; object-fit: cover; border: 1px solid var(--border-color); transition: opacity 0.3s ease; }
+    .thumbnails { display: flex; gap: 15px; margin-top: 15px; }
+    .thumb { width: calc(33.333% - 10px); height: 100px; object-fit: cover; cursor: pointer; border: 1px solid var(--border-color); opacity: 0.6; transition: all 0.3s ease; }
+    .thumb:hover, .thumb.active { opacity: 1; border-color: var(--accent-gold); }
+    .car-meta span { font-size: 0.8rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; }
+    .car-meta h1 { font-size: 3rem; font-weight: 900; color: var(--text-primary); margin: 10px 0 20px 0; }
+    .car-desc { color: var(--text-secondary); line-height: 1.8; margin-bottom: 30px; }
+    .specs-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+    .specs-table td { padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+    .specs-table td.label { color: var(--text-secondary); font-size: 0.9rem; }
+    .specs-table td.value { color: var(--text-primary); text-align: right; font-weight: 700; }
+    .back-btn { display: inline-block; margin-bottom: 30px; color: var(--text-primary); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
     .back-btn:hover { color: var(--accent-gold); }
-    
-    .rent-btn {
-      width: 100%;
-      background-color: var(--accent-gold);
-      color: #000;
-      border: none;
-      padding: 20px;
-      font-family: inherit;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .rent-btn:hover { background-color: var(--accent-hover); }
+    .rent-btn { width: 100%; background-color: var(--accent-gold); color: #000; border: none; padding: 20px; font-family: inherit; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+    .rent-btn:hover { background-color: #e0bd7a; }
   </style>
 </head>
 <body>
 
   <div style="padding: 40px 5%;">
     <a href="/" class="back-btn">← Вернуться в каталог</a>
-    
     <div class="car-detail-container" id="carDetailContainer">
       <p style="color: var(--text-secondary);">Загрузка деталей автомобиля...</p>
     </div>
   </div>
 
   <script src="https://jsdelivr.net"></script>
-  <script type="module" src="./car.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2 });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // Локальная база для детальной страницы
+    const carsDb = {
+      "mb-e-class": { class: "Business", name: "Mercedes-Benz E-Class", desc: "Эталон бизнес-класса, сочетающий в себе цифровой комфорт, инновационные системы безопасности и классический немецкий стиль.", engine: "2.0L Turbo", power: "258 л.с.", accel: "6.2 сек", price: "15 000 руб.", imgFolder: "mb-e" },
+      "bmw-5": { class: "Business", name: "BMW 5-Series", desc: "Динамичный бизнес-седан для тех, кто привык контролировать дорогу. Острый руль и бескомпромиссный комфорт.", engine: "3.0L TwinPower", power: "286 л.с.", accel: "5.7 сек", price: "16 000 руб.", imgFolder: "bmw-5" },
+      "audi-a6": { class: "Business", name: "Audi A6 Avant", desc: "Идеальный баланс между практичностью кузова универсал и строгим дизайном с полным приводом Quattro.", engine: "2.0L TDI", power: "204 л.с.", accel: "7.4 сек", price: "14 000 руб.", imgFolder: "audi-a6" },
+      "maybach": { class: "Premium", name: "Mercedes-Maybach S", desc: "Ультимативный уровень роскоши, тишины и плавной поступи для высших лиц. Истинный флагман.", engine: "4.0L V8 Biturbo", power: "503 л.с.", accel: "4.8 сек", price: "45 000 руб.", imgFolder: "maybach" },
+      "bentley": { class: "Premium", name: "Bentley Continental GT", desc: "Двухдверный шедевр британского автопрома. Сочетание благородных традиций и динамики спорткара.", engine: "6.0L W12", power: "635 л.с.", accel: "3.7 сек", price: "55 000 руб.", imgFolder: "bentley" },
+      "panamera": { class: "Premium", name: "Porsche Panamera", desc: "Настоящий спорткар в теле роскошного четырехдверного лимузина. Грация и эталонная управляемость.", engine: "4.0L V8 Twin-Turbo", power: "480 л.с.", accel: "3.9 сек", price: "35 000 руб.", imgFolder: "panamera" },
+      "spectre": { class: "Ultima", name: "Rolls-Royce Spectre", desc: "Первый в истории полностью электрический ультра-люкс купе. Абсолютная, космическая тишина в салоне.", engine: "Dual Electric Motor", power: "585 л.с.", accel: "4.5 сек", price: "120 000 руб.", imgFolder: "spectre" },
+      "revuelto": { class: "Ultima", name: "Lamborghini Revuelto", desc: "Гибридный монстр нового поколения с двигателем V12. Динамика, которая находится за гранью.", engine: "6.5L V12 Hybrid", power: "1015 л.с.", accel: "2.5 сек", price: "150 000 руб.", imgFolder: "revuelto" },
+      "purosangue": { class: "Ultima", name: "Ferrari Purosangue", desc: "Первое в истории четырехдверное творение из Маранелло под капотом которого бьется чистокровный V12.", engine: "6.5L V12", power: "725 л.с.", accel: "3.3 сек", price: "130 000 руб.", imgFolder: "purosangue" }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const carId = urlParams.get('id');
+    const container = document.getElementById('carDetailContainer');
+
+    if (carId && carsDb[carId]) {
+      const car = carsDb[carId];
+      // Генерируем пути по вашей схеме (например, mb-e1.jpg, mb-e2.jpg...)
+      const img1 = `/images/cars/${car.imgFolder}1.jpg`;
+      const img2 = `/images/cars/${car.imgFolder}2.jpg`;
+      const img3 = `/images/cars/${car.imgFolder}3.jpg`;
+
+      container.innerHTML = `
+        <div class="gallery-column">
+          <img src="${img1}" class="main-image" id="mainImg">
+          <div class="thumbnails">
+            <img src="${img1}" class="thumb active" onclick="changeImage(this, '${img1}')">
+            <img src="${img2}" class="thumb" onclick="changeImage(this, '${img2}')">
+            <img src="${img3}" class="thumb" onclick="changeImage(this, '${img3}')">
+          </div>
+        </div>
+        <div class="info-column">
+          <div class="car-meta"><span>${car.class.toUpperCase()}</span><h1>${car.name}</h1></div>
+          <p class="car-desc">${car.desc}</p>
+          <table class="specs-table">
+            <tr><td class="label">Двигатель</td><td class="value">${car.engine}</td></tr>
+            <tr><td class="label">Мощность</td><td class="value">${car.power}</td></tr>
+            <tr><td class="label">Разгон (0-100)</td><td class="value">${car.accel}</td></tr>
+            <tr><td class="label" style="color: var(--accent-gold);">Сутки</td><td class="value" style="color: var(--accent-gold);">${car.price}</td></tr>
+          </table>
+          <button class="rent-btn">Забронировать</button>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p style="color: #fff;">Машина не найдена в базе данных.</p>`;
+    }
+
+    window.changeImage = function(el, src) {
+      document.getElementById('mainImg').src = src;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
 </body>
 </html>

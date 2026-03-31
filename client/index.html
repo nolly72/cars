@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOLLY CARS | Premium Car Rental</title>
   <link rel="stylesheet" href="./style.css">
+  <style>
+    /* Быстрые стили для карточек, чтобы цена выглядела дорого */
+    .car-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ХЕДЕР (ГЛАВНЫЙ ЭКРАН) -->
+  <!-- ХЕДЕР -->
   <header class="hero">
     <h1 class="logo">NOLLY CARS</h1>
     <p class="subtitle">Аренда автомобилей высшего класса. Превосходя ожидания.</p>
@@ -28,7 +38,7 @@
   <!-- КАТАЛОГ МАШИН -->
   <main class="catalog">
     <div class="cars-grid" id="carsGrid">
-      <!-- Карточки авто сгенерируются через JavaScript -->
+      <!-- Машины генерируются тут -->
     </div>
   </main>
 
@@ -44,7 +54,7 @@
     </div>
   </section>
 
-  <!-- ИИ БОТ КОНСУЛЬТАНТ -->
+  <!-- ИИ БОТ -->
   <div class="bot-trigger" id="botTrigger" style="position: fixed; bottom: 30px; right: 30px; background: #c5a059; color: #000; padding: 15px 25px; border-radius: 4px; font-weight: 700; cursor: pointer; z-index: 1000; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">
     <span>Задать вопрос ИИ</span>
   </div>
@@ -58,25 +68,38 @@
       <div style="background: rgba(255,255,255,0.02); padding: 10px; max-width: 85%;">Приветствую в NOLLY CARS. Какой класс автомобилей вас интересует?</div>
     </div>
     <div class="chat-input-area" style="display: flex; padding: 15px; border-top: 1px solid rgba(255,255,255,0.03);">
-      <input type="text" id="chatInput" placeholder="Спросите об авто..." style="flex: 1; background: transparent; border: none; color: #fff; outline: none; font-family: inherit;">
-      <button id="sendBtn" style="background: none; border: none; color: #c5a059; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Отправить</button>
+      <input type="text" id="chatInput" placeholder="Спросите об авто...">
+      <button id="sendBtn" style="background: none; border: none; color: #c5a059; cursor: pointer; font-weight: 700; text-transform: uppercase;">Отправить</button>
     </div>
   </div>
 
-  <!-- ПОДКЛЮЧЕНИЕ БИБЛИОТЕК НАПРЯМУЮ (CDN) -->
+  <!-- БИБЛИОТЕКИ -->
   <script src="https://jsdelivr.net"></script>
-  <script src="https://cloudflare.com"></script>
-  <script src="https://cloudflare.com"></script>
 
-  <!-- Глобальные скрипты управления каталогом -->
+  <!-- ВСЯ ЛОГИКА ТЕПЕРЬ ТУТ -->
   <script>
-    let allCars = [];
+    // 1. Инициализация Lenis
+    const lenis = new Lenis({ duration: 1.2 });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
 
-    // Отрисовка карточек
+    // 2. БАЗА ДАННЫХ ПРЯМО В HTML
+    const carsData = [
+      { id: "mb-e-class", class: "business", name: "Mercedes-Benz E-Class", price: "15 000 руб.", img: "/images/cars/mb-e1.jpg" },
+      { id: "bmw-5", class: "business", name: "BMW 5-Series", price: "16 000 руб.", img: "/images/cars/bmw-51.jpg" },
+      { id: "audi-a6", class: "business", name: "Audi A6 Avant", price: "14 000 руб.", img: "/images/cars/audi-a61.jpg" },
+      { id: "maybach", class: "premium", name: "Mercedes-Maybach S", price: "45 000 руб.", img: "/images/cars/maybach1.jpg" },
+      { id: "bentley", class: "premium", name: "Bentley Continental GT", price: "55 000 руб.", img: "/images/cars/bentley1.jpg" },
+      { id: "panamera", class: "premium", name: "Porsche Panamera", price: "35 000 руб.", img: "/images/cars/panamera1.jpg" },
+      { id: "spectre", class: "ultima", name: "Rolls-Royce Spectre", price: "120 000 руб.", img: "/images/cars/spectre1.jpg" },
+      { id: "revuelto", class: "ultima", name: "Lamborghini Revuelto", price: "150 000 руб.", img: "/images/cars/revuelto1.jpg" },
+      { id: "purosangue", class: "ultima", name: "Ferrari Purosangue", price: "130 000 руб.", img: "/images/cars/purosangue1.jpg" }
+    ];
+
+    // 3. Вывод на экран
     function renderCars(cars) {
       const grid = document.getElementById('carsGrid');
-      if (!grid) return;
-      grid.innerHTML = ''; 
+      grid.innerHTML = '';
       
       cars.forEach(car => {
         const card = document.createElement('div');
@@ -86,9 +109,9 @@
              <img src="${car.img}" alt="${car.name}">
           </div>
           <div class="car-info">
-             <span>${car.class}</span>
+             <span>${car.class.toUpperCase()}</span>
              <h3>${car.name}</h3>
-             <button>Подробнее</button>
+             <div class="car-price">${car.price} / сутки</div>
           </div>
         `;
         
@@ -98,32 +121,58 @@
         
         grid.appendChild(card);
       });
-
-      // Анимация GSAP
-      if (typeof gsap !== 'undefined') {
-        gsap.from('.car-card', {
-          y: 60,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          overwrite: "auto"
-        });
-      }
     }
 
-    // Глобальная функция фильтрации (Браузер точно её увидит!)
+    // 4. ФУНКЦИЯ ФИЛЬТРА (100% ГЛОБАЛЬНАЯ)
     window.filterCars = function(className) {
       if (className === 'all') {
-        renderCars(allCars);
+        renderCars(carsData);
       } else {
-        const filtered = allCars.filter(car => car.class === className);
+        const filtered = carsData.filter(car => car.class === className);
         renderCars(filtered);
       }
     }
-  </script>
 
-  <!-- Внешний скрипт для ИИ бота и плавного скролла -->
-  <script src="./app.js"></script>
+    // 5. ЧАТ БОТ
+    const botTrigger = document.getElementById('botTrigger');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChat = document.getElementById('closeChat');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    botTrigger.addEventListener('click', () => chatWindow.style.display = 'flex');
+    closeChat.addEventListener('click', () => chatWindow.style.display = 'none');
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if(!text) return;
+      createMessage(text, 'user');
+      chatInput.value = '';
+      setTimeout(() => {
+        createMessage("Все операторы NOLLY CARS сейчас заняты. Оставьте контакты, мы свяжемся с вами!", 'bot');
+      }, 1000);
+    }
+
+    function createMessage(text, type) {
+      const div = document.createElement('div');
+      div.style.padding = '10px';
+      div.style.maxWidth = '85%';
+      div.style.borderRadius = '2px';
+      div.innerText = text;
+      if (type === 'user') {
+        div.style.background = '#c5a059'; div.style.color = '#000'; div.style.alignSelf = 'flex-end';
+      } else {
+        div.style.background = 'rgba(255,255,255,0.02)'; div.style.color = '#ccc'; div.style.alignSelf = 'flex-start';
+      }
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Запуск при загрузке
+    renderCars(carsData);
+  </script>
 </body>
 </html>
