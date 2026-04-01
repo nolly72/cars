@@ -1,4 +1,4 @@
-// ДАННЫЕ ОСТАВЛЯЕМ КАК ЕСТЬ (ПУТИ К ФОТО НЕ ТРОГАЕМ)
+// ДАННЫЕ ОСТАВЛЯЕМ КАК ЕСТЬ
 const carData = [
     { id: 'bmw-5', cat: 'BUSINESS', name: 'BMW 5-Series', price: '14,500₽', imgs: ['bmw-51.jpg', 'bmw-52.jpg', 'bmw-53.jpg'], hp: '252 л.с.', speed: '250 км/ч', desc: 'Немецкий драйв и премиальный комфорт.' },
     { id: 'audi-a6', cat: 'BUSINESS', name: 'Audi A6 Avant', price: '13,000₽', imgs: ['audi-a61.jpg', 'audi-a62.jpg', 'audi-a63.jpg'], hp: '245 л.с.', speed: '240 км/ч', desc: 'Универсальность и мощь полного привода Quattro.' },
@@ -10,7 +10,6 @@ const carData = [
     { id: 'purosangue', cat: 'ULTIMA', name: 'Ferrari Purosangue', price: '140,000₽', imgs: ['purosangue1.jpg', 'purosangue2.jpg', 'purosangue3.jpg'], hp: '725 л.с.', speed: '310 км/ч', desc: 'Первый SUV от Ferrari.' }
 ];
 
-// РЕНДЕР КАТАЛОГА С НОВЫМ СТИЛЕМ
 function renderCatalog() {
     const grid = document.getElementById('cars-grid');
     if (!grid) return;
@@ -50,14 +49,60 @@ function openCar(id) {
     window.location.href = 'car.html';
 }
 
-// РАСШИРЕННЫЙ КВИЗ (3 ШАГА)
-const quizData = [
-    { q: "ДЛЯ КАКОЙ ЦЕЛИ НУЖЕН АВТО?", a: ["БИЗНЕС ВСТРЕЧА", "ГРОМКОЕ СОБЫТИЕ", "ЧИСТЫЙ ДРАЙВ"] },
-    { q: "ЖЕЛАЕМЫЙ ТИП ПРИВОДА?", a: ["ПОЛНЫЙ (AWD)", "ЗАДНИЙ (RWD)", "НЕВАЖНО"] },
-    { q: "ВАШ ОПЫТ ВОЖДЕНИЯ?", a: ["ДО 3 ЛЕТ", "ОТ 3 ДО 10 ЛЕТ", "ПРОФЕССИОНАЛ"] }
-];
-
+// --- РАСШИРЕННЫЙ КВИЗ ---
 let step = 0;
+let userAnswers = { category: 'BUSINESS' };
+
+const quizData = [
+    { 
+        q: "КТО ВЫ СЕГОДНЯ?", 
+        a: [
+            { text: "ДЕЙСТВУЮЩИЙ БИЗНЕСМЕН", cat: "BUSINESS" },
+            { text: "ЦЕНИТЕЛЬ КОМФОРТА", cat: "PREMIUM" },
+            { text: "ОХОТНИК ЗА АДРЕНАЛИНОМ", cat: "ULTIMA" }
+        ] 
+    },
+    { 
+        q: "ЦЕЛЬ ВАШЕЙ ПОЕЗДКИ?", 
+        a: [
+            { text: "ВСТРЕЧА ИЗ АЭРОПОРТА", cat: "BUSINESS" },
+            { text: "ЯРКОЕ СВИДАНИЕ", cat: "PREMIUM" },
+            { text: "ТРЕК ИЛИ НОЧНОЙ ГОРОД", cat: "ULTIMA" }
+        ] 
+    },
+    { 
+        q: "ВАШ ПРИОРИТЕТ В АВТО?", 
+        a: [
+            { text: "СТРОГИЙ СТИЛЬ", cat: "BUSINESS" },
+            { text: "МЯГКОСТЬ ПОДВЕСКИ", cat: "PREMIUM" },
+            { text: "ЗВУК ВЫХЛОПА", cat: "ULTIMA" }
+        ] 
+    },
+    { 
+        q: "ЖЕЛАЕМЫЙ ТИП ПРИВОДА?", 
+        a: [
+            { text: "ПОЛНЫЙ (AWD)", cat: "BUSINESS" },
+            { text: "НЕВАЖНО", cat: "PREMIUM" },
+            { text: "ТОЛЬКО ЗАДНИЙ", cat: "ULTIMA" }
+        ] 
+    },
+    { 
+        q: "ВАШ ОПЫТ ВОЖДЕНИЯ?", 
+        a: [
+            { text: "ОТ 2 ДО 5 ЛЕТ", cat: "BUSINESS" },
+            { text: "ОТ 5 ДО 10 ЛЕТ", cat: "PREMIUM" },
+            { text: "БОЛЕЕ 10 ЛЕТ / ПИЛОТ", cat: "ULTIMA" }
+        ] 
+    },
+    { 
+        q: "БЮДЖЕТ НА СУТКИ?", 
+        a: [
+            { text: "ДО 20.000₽", cat: "BUSINESS" },
+            { text: "ОТ 30.000₽ ДО 60.000₽", cat: "PREMIUM" },
+            { text: "БЕЗ ОГРАНИЧЕНИЙ", cat: "ULTIMA" }
+        ] 
+    }
+];
 
 function openQuiz() { 
     document.getElementById('quiz-modal').style.display = 'flex'; 
@@ -70,55 +115,69 @@ function closeQuiz() {
 }
 
 function showStep() {
-    const q = quizData[step];
-    document.getElementById('quiz-question').innerText = q.q;
+    const current = quizData[step];
+    document.getElementById('quiz-question').innerText = current.q;
     const opt = document.getElementById('quiz-options');
     opt.innerHTML = '';
-    q.a.forEach(v => { 
-        opt.innerHTML += `<button class="ai-btn" style="text-align:center; font-weight:bold; letter-spacing:1px;" onclick="nextStep()">${v}</button>`; 
+    
+    current.a.forEach(item => { 
+        opt.innerHTML += `<button class="ai-btn" style="text-align:center; font-weight:bold;" onclick="handleAnswer('${item.cat}')">${item.text}</button>`; 
     });
 }
 
-function nextStep() {
+function handleAnswer(selectedCat) {
+    userAnswers.category = selectedCat; // Последний ответ определяет итоговую подборку
     step++;
     if(step < quizData.length) {
         showStep();
     } else {
-        document.getElementById('quiz-question').innerText = "АНАЛИЗ ЗАВЕРШЕН. ВАШ ВЫБОР:";
-        document.getElementById('quiz-options').innerHTML = `
-            <div style="text-align:center; width:100%;">
-                <h2 style="color:var(--neon); font-family:'Orbitron'; font-size:2.5rem; margin-bottom:20px; text-shadow: 0 0 20px var(--neon);">LAMBORGHINI REVUELTO</h2>
-                <p style="color:#888; margin-bottom:30px;">Идеальное сочетание мощности V12 и технологий будущего.</p>
-                <button class="btn-neon-large" onclick="closeQuiz()">ПЕРЕЙТИ К БРОНИРОВАНИЮ</button>
-            </div>
-        `;
+        showResult();
     }
 }
 
-// УЛУЧШЕННЫЙ ИИ ЧАТ
+function showResult() {
+    // Фильтруем авто по категории, которую выбрал пользователь в конце или чаще всего
+    const recommendations = carData.filter(car => car.cat === userAnswers.category).slice(0, 3);
+    
+    document.getElementById('quiz-question').innerText = "ПОДБОРОЧКА ДЛЯ ВАС:";
+    let resultHTML = `<div style="display:grid; grid-template-columns: 1fr; gap:15px; margin-bottom:20px;">`;
+    
+    recommendations.forEach(car => {
+        resultHTML += `
+            <div onclick="openCar('${car.id}')" style="background:#111; padding:15px; border:1px solid var(--neon); cursor:pointer; display:flex; align-items:center; gap:15px; text-align:left;">
+                <img src="images/${car.imgs[0]}" style="width:80px; height:50px; object-fit:cover;">
+                <div>
+                    <div style="font-family:'Orbitron'; font-size:0.9rem;">${car.name}</div>
+                    <div style="color:var(--neon); font-size:0.8rem;">${car.price}</div>
+                </div>
+            </div>
+        `;
+    });
+    
+    resultHTML += `</div><button class="btn-neon-large" onclick="closeQuiz()">В КАТАЛОГ</button>`;
+    document.getElementById('quiz-options').innerHTML = resultHTML;
+}
+
+// --- ИИ ЧАТ ---
 function toggleAiChat() {
     const win = document.getElementById('ai-window');
-    const isVisible = win.style.display === 'flex';
-    win.style.display = isVisible ? 'none' : 'flex';
+    win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
 }
 
 function aiAnswer(q, a) {
     const resp = document.getElementById('ai-response');
     resp.style.display = 'block';
-    resp.innerHTML = `<span style="color:#555; font-size:0.8rem;">ОБРАБОТКА ЗАПРОСА...</span>`;
+    resp.innerHTML = `<span style="color:#555; font-size:0.8rem;">ОБРАБОТКА...</span>`;
     
-    // Эффект небольшой задержки "типа ИИ думает"
     setTimeout(() => {
-        resp.innerHTML = `<strong style="color:var(--neon); font-family:'Orbitron'; font-size:0.8rem;">[SYSTEM]: ${q.toUpperCase()}</strong><br><span style="color:#eee;">${a}</span>`;
+        resp.innerHTML = `<strong style="color:var(--neon); font-family:'Orbitron'; font-size:0.8rem;">[SYSTEM]: ${q.toUpperCase()}</strong><br>${a}`;
     }, 400);
 }
 
-// Закрытие модалки по клику вне контента
 window.onclick = function(event) {
     const modal = document.getElementById('quiz-modal');
-    if (event.target == modal) {
-        closeQuiz();
-    }
+    if (event.target == modal) closeQuiz();
 }
 
 window.onload = renderCatalog;
+
