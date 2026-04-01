@@ -3,59 +3,85 @@
     --navy: #0d1117;
     --neon-blue: #00e5ff;
     --white: #ffffff;
-    --gray: #777;
+    --gray: #999;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
     background: radial-gradient(circle at top, #1a1c2c, var(--bg-color));
     color: var(--white);
     font-family: 'Inter', sans-serif;
-    line-height: 1.6;
+    line-height: 1.4;
+    overflow-x: hidden;
 }
 
-/* Шрифты */
-h1, h2, h3, .logo { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-style: italic; }
+/* Сверхжирные заголовки */
+h1, h2, h3, .logo, .btn-neon { 
+    font-family: 'Oswald', sans-serif; 
+    text-transform: uppercase; 
+    font-style: italic; 
+    font-weight: 700; /* Максимальная жирность */
+}
 
 /* Навигация */
-nav { display: flex; justify-content: space-between; padding: 25px 10%; background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 1000; }
-.logo { font-size: 1.8rem; letter-spacing: 2px; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 10%; background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.logo { font-size: 2.2rem; letter-spacing: 1px; }
 .logo span { color: var(--neon-blue); }
-.nav-links a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: bold; margin-left: 30px; letter-spacing: 1px; }
+.nav-links a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 900; margin-left: 30px; letter-spacing: 1px; }
 
-/* Hero */
-.hero { text-align: center; padding: 120px 20px; }
-h1 { font-size: 6rem; letter-spacing: -3px; color: var(--white); line-height: 1; }
-.hero-sub { color: var(--neon-blue); font-weight: bold; margin-top: 15px; letter-spacing: 4px; font-size: 0.9rem; }
+/* Hero секция */
+.hero { text-align: center; padding: 100px 20px 60px; }
+h1 { font-size: 8rem; letter-spacing: -4px; line-height: 0.9; margin-bottom: 10px; }
+.hero-sub { color: var(--neon-blue); font-weight: 900; letter-spacing: 5px; font-size: 1.1rem; margin-bottom: 40px; }
 
-.trust-container { display: flex; justify-content: center; gap: 40px; margin-top: 50px; }
-.trust-item { font-size: 0.75rem; font-weight: 700; color: #ccc; }
+.trust-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.trust-item { font-size: 0.9rem; font-weight: 900; color: #fff; background: rgba(255,255,255,0.03); padding: 10px 20px; border-radius: 4px; }
 .trust-item span { color: var(--neon-blue); margin-right: 8px; }
 
-/* Карточки авто */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; padding: 60px 10%; }
+/* Опрос */
+.quiz-section { padding: 40px 10%; }
+.quiz-card { background: var(--navy); padding: 40px; border: 2px solid var(--neon-blue); text-align: center; clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%); }
+.quiz-card h3 { font-size: 2rem; margin-bottom: 10px; }
+.quiz-card p { font-weight: 600; color: var(--gray); margin-bottom: 25px; }
+
+/* Сетка авто */
+.section-title { font-size: 3rem; text-align: center; margin-bottom: 40px; letter-spacing: -1px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 0 10% 80px; }
+
 .car-card {
     background: var(--navy);
-    padding: 10px;
-    border-left: 2px solid transparent;
-    transition: 0.4s;
+    padding: 15px;
+    transition: 0.3s;
     cursor: pointer;
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 94% 100%, 0 100%);
+    border: 1px solid rgba(255,255,255,0.05);
 }
-.car-card:hover { border-color: var(--neon-blue); transform: scale(1.03); background: #161b22; }
-.car-card img { width: 100%; height: 210px; object-fit: cover; filter: grayscale(20%); }
-.car-card h3 { margin: 15px 0 5px 10px; font-size: 1.4rem; }
-.card-meta { display: flex; justify-content: space-between; padding: 0 10px 15px; font-size: 0.85rem; color: var(--gray); }
+.car-card:hover { transform: translateY(-10px); border-color: var(--neon-blue); }
+.car-card img { width: 100%; height: 240px; object-fit: cover; margin-bottom: 15px; }
+.car-card h3 { font-size: 1.8rem; margin-bottom: 5px; line-height: 1; }
+.card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
+.card-meta .price { font-weight: 900; font-size: 1.1rem; color: var(--white); }
+.card-meta .hp { background: var(--neon-blue); color: #000; padding: 2px 8px; font-weight: 900; font-size: 0.8rem; }
 
 /* Кнопки */
 .btn-neon {
-    background: transparent; border: 2px solid var(--neon-blue); color: var(--neon-blue);
-    padding: 15px 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+    background: var(--neon-blue); color: #000;
+    padding: 18px 45px; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s;
 }
-.btn-neon:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 20px var(--neon-blue); }
+.btn-neon:hover { box-shadow: 0 0 30px var(--neon-blue); transform: scale(1.05); }
 
-.ai-button {
-    position: fixed; bottom: 40px; right: 40px; background: var(--neon-blue);
-    color: black; padding: 18px 25px; border-radius: 5px; font-weight: 900; cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,229,255,0.3); z-index: 999;
+/* Футер */
+footer { background: #000; padding: 60px 10%; border-top: 1px solid #111; }
+.footer-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.f-box h3 { color: var(--neon-blue); font-size: 1.5rem; margin-bottom: 15px; }
+.f-box p { font-weight: 700; color: #fff; font-size: 1rem; line-height: 1.8; }
+
+/* Адаптив для телефонов */
+@media (max-width: 768px) {
+    h1 { font-size: 3.5rem !important; }
+    .hero-sub { font-size: 0.7rem; letter-spacing: 2px; }
+    .nav-links { display: none; }
+    .grid { grid-template-columns: 1fr; padding: 0 5% 50px; }
+    .section-title { font-size: 2rem; }
+    .trust-container { flex-direction: column; gap: 10px; }
 }
