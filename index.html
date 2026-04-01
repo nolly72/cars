@@ -2,8 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NOLLY CARS | Premium Rental</title>
+    <!-- Исправленные жирные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -34,7 +37,7 @@
         </div>
     </section>
 
-    <main id="catalog">
+    <main id="catalog" class="catalog-section">
         <h2 class="section-title">НАШ АВТОПАРК</h2>
         <div id="cars-grid" class="grid"></div>
     </main>
@@ -52,7 +55,41 @@
         </div>
     </footer>
 
+    <!-- Кнопка ИИ БОТА -->
+    <div class="ai-messenger" onclick="toggleAiChat()">
+        <div class="ai-status"></div>
+        <span>AI КОНСУЛЬТАНТ</span>
+    </div>
+
+    <!-- Окно чата -->
+    <div id="ai-window" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <strong>NOLLY AI</strong>
+            <span onclick="toggleAiChat()" style="cursor:pointer; font-family:sans-serif;">✕</span>
+        </div>
+        <div class="ai-chat-body">
+            <p>Привет! Я — ИИ помощник NOLLY CARS. Какой автомобиль вас интересует сегодня?</p>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" placeholder="Ваш вопрос...">
+        </div>
+    </div>
+
     <script src="script.js"></script>
-    <script>window.onload = renderCatalog;</script>
+    <script>
+        // Загрузка каталога и функция чата
+        window.onload = function() {
+            if (typeof renderCatalog === 'function') renderCatalog();
+        };
+
+        function toggleAiChat() {
+            const chat = document.getElementById('ai-window');
+            if (chat.style.display === 'flex') {
+                chat.style.display = 'none';
+            } else {
+                chat.style.display = 'flex';
+            }
+        }
+    </script>
 </body>
 </html>
