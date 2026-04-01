@@ -3,25 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOLLY CARS | Premium Rental</title>
+    <title>NOLLY CARS | Premium Rental Moscow City</title>
+    <!-- Спортивный и современный шрифты -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav><div class="logo">NOLLY <span>CARS</span></div></nav>
+    <nav>
+        <div class="logo">NOLLY <span>CARS</span></div>
+        <div class="nav-links">
+            <span>АРЕНДА</span>
+            <span>УСЛОВИЯ</span>
+            <span>КОНТАКТЫ</span>
+        </div>
+    </nav>
 
     <header class="hero">
-        <h1>NOLLY CARS</h1>
-        <p class="hero-sub">АРЕНДА ПРЕМИАЛЬНЫХ АВТО В МОСКВА-СИТИ</p>
-        <div class="trust-container">
-            <div class="trust-item"><span>⚡</span> ПОДАЧА 30 МИН</div>
-            <div class="trust-item"><span>🛡️</span> КАСКО ВКЛЮЧЕНО</div>
+        <div class="hero-content">
+            <h1 class="glitch-text">NOLLY CARS</h1>
+            <p class="hero-sub">ЭКОСИСТЕМА ДРАЙВА И РОСКОШИ В СЕРДЦЕ СТОЛИЦЫ</p>
+            
+            <div class="hero-description">
+                Мы предоставляем эксклюзивный доступ к флагманским суперкарам и премиальным внедорожникам. 
+                Никаких долгих оформлений — только чистый адреналин и безупречный сервис в Москва-Сити.
+            </div>
+
+            <div class="trust-container">
+                <div class="trust-item">
+                    <span class="icon">⚡</span> 
+                    <div class="t-text"><b>ПОДАЧА 30 МИН</b><br>Оперативность уровня F1</div>
+                </div>
+                <div class="trust-item">
+                    <span class="icon">🛡️</span> 
+                    <div class="t-text"><b>ПОЛНОЕ КАСКО</b><br>Ваша безопасность в приоритете</div>
+                </div>
+                <div class="trust-item">
+                    <span class="icon">💎</span> 
+                    <div class="t-text"><b>NEW COLLECTION</b><br>Автопарк 2023-2024 года</div>
+                </div>
+            </div>
         </div>
     </header>
 
+    <section class="about-section">
+        <div class="section-header">
+            <h2>ПОЧЕМУ ВЫБИРАЮТ НАС?</h2>
+            <div class="line"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-item">
+                <h3>01. ЛОКАЦИЯ</h3>
+                <p>Наш основной паркинг находится непосредственно в Башне Федерация. Вы можете забрать авто, просто спустившись на лифте.</p>
+            </div>
+            <div class="about-item">
+                <h3>02. СКОРОСТЬ</h3>
+                <p>Минимальный пакет документов. Оформление договора занимает не более 10 минут прямо у капота автомобиля.</p>
+            </div>
+            <div class="about-item">
+                <h3>03. КОНФИДЕНЦИАЛЬНОСТЬ</h3>
+                <p>Мы гарантируем полную анонимность ваших поездок и сохранность персональных данных.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="quiz-section">
-        <div class="quiz-card">
-            <h2>ПОДОБРАТЬ ИДЕАЛЬНЫЙ АВТО?</h2>
-            <button class="btn-neon" onclick="openQuiz()" style="margin-top:20px;">НАЧАТЬ ТЕСТ</button>
+        <div class="quiz-card-premium">
+            <div class="quiz-info">
+                <h2>НЕ ЗНАЕТЕ, ЧТО ВЫБРАТЬ?</h2>
+                <p>Ответьте на 3 вопроса, и наш алгоритм подберет идеальный болид под ваш стиль вождения.</p>
+            </div>
+            <button class="btn-neon-large" onclick="openQuiz()">ПОДОБРАТЬ АВТО</button>
         </div>
     </section>
 
@@ -29,27 +80,62 @@
 
     <footer>
         <div class="footer-wrap">
-            <div class="f-box"><h3>ГДЕ МЫ?</h3><p>Пресненская наб., 12</p></div>
-            <div class="f-box"><h3>СВЯЗЬ</h3><p>+7 (495) 000-01-01</p></div>
+            <div class="f-box">
+                <h3>ЛОКАЦИЯ</h3>
+                <p>Москва-Сити, Пресненская наб., 12</p>
+                <p><b>Башня Федерация "Восток"</b></p>
+            </div>
+            <div class="f-box">
+                <h3>CLIENT SERVICE</h3>
+                <p class="phone">+7 (495) 000-01-01</p>
+                <p>Работаем 24/7 без выходных</p>
+            </div>
+            <div class="f-box">
+                <h3>SOCIAL</h3>
+                <p>Instagram / Telegram / WhatsApp</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 NOLLY CARS PREMIUM RENTAL. ALL RIGHTS RESERVED.
         </div>
     </footer>
 
     <!-- Модалки -->
     <div id="quiz-modal">
-        <div class="quiz-card" style="width: 90%; max-width: 400px;">
-            <p id="quiz-question" style="font-size: 1.5rem; margin-bottom: 20px;"></p>
-            <div id="quiz-options" style="display:flex; flex-direction:column;"></div>
+        <div class="quiz-card" style="width: 90%; max-width: 500px;">
+            <div class="quiz-header">ПОДБОР АВТО</div>
+            <p id="quiz-question" style="font-size: 1.4rem; margin-bottom: 20px;"></p>
+            <div id="quiz-options" class="options-grid"></div>
         </div>
     </div>
 
-    <div class="ai-messenger" onclick="toggleAiChat()">AI</div>
+    <!-- Расширенный AI Помощник -->
+    <div class="ai-messenger-container">
+        <div class="ai-label">ЕСТЬ ВОПРОСЫ?</div>
+        <div class="ai-messenger" onclick="toggleAiChat()">
+            <span class="ai-icon">AI</span>
+        </div>
+    </div>
+
     <div id="ai-window" class="ai-chat-window">
-        <div class="ai-chat-header">NOLLY AI <span onclick="toggleAiChat()" style="cursor:pointer">✕</span></div>
+        <div class="ai-chat-header">
+            <div class="status-dot"></div>
+            <span>NOLLY AI ASSISTANT</span>
+            <span onclick="toggleAiChat()" style="cursor:pointer; font-size: 20px;">×</span>
+        </div>
         <div class="ai-chat-body">
-            <p style="margin-bottom:15px;">Выберите вопрос:</p>
-            <button onclick="aiAnswer('КАСКО', 'Все авто застрахованы.')" style="width:100%; margin-bottom:5px; background:#222; border:1px solid #444; color:#fff; padding:10px; cursor:pointer;">Про КАСКО</button>
-            <button onclick="aiAnswer('Оплата', 'Нал, карты, счет.')" style="width:100%; background:#222; border:1px solid #444; color:#fff; padding:10px; cursor:pointer;">Оплата</button>
-            <div id="ai-response" style="margin-top:15px; color:var(--neon); display:none;"></div>
+            <div class="ai-welcome">Привет! Я помогу тебе быстро разобраться в условиях аренды. Выбери тему:</div>
+            
+            <div class="ai-questions-list">
+                <button class="ai-btn" onclick="aiAnswer('Страховка', 'Все автомобили защищены полным КАСКО. Ваша ответственность ограничена суммой залога.')">🛡️ Про страховку</button>
+                <button class="ai-btn" onclick="aiAnswer('Документы', 'Для аренды нужны только паспорт и водительское удостоверение (стаж от 2-х лет).')">📄 Что нужно для аренды?</button>
+                <button class="ai-btn" onclick="aiAnswer('Залог', 'Залог зависит от класса авто и возвращается сразу после завершения аренды.')">💰 Сумма залога</button>
+                <button class="ai-btn" onclick="aiAnswer('Доставка', 'Мы бесплатно подадим авто в любую точку Москва-Сити. По Москве — от 30 минут.')">📍 Доставка и подача</button>
+                <button class="ai-btn" onclick="aiAnswer('Выезд', 'Выезд разрешен по всей Московской области. Другие регионы обсуждаются отдельно.')">🌍 Территория поездок</button>
+                <button class="ai-btn" onclick="aiAnswer('Оплата', 'Мы принимаем наличные, карты и оплату по счету для юрлиц.')">💳 Способы оплаты</button>
+            </div>
+            
+            <div id="ai-response" class="ai-response-bubble"></div>
         </div>
     </div>
 

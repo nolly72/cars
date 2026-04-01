@@ -4,32 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Детали | NOLLY CARS</title>
+    <!-- Основной стиль, который мы сделали -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="padding: 40px 8%;">
-    <a href="index.html" class="btn-neon" style="text-decoration:none;">< НАЗАД</a>
+<body style="padding: 120px 8% 40px;"> <!-- Отступ сверху, чтобы нави не закрывала -->
+    
+    <nav>
+        <div class="logo">NOLLY <span>CARS</span></div>
+        <a href="index.html" class="btn-neon" style="text-decoration:none; padding: 10px 20px;"> < НАЗАД </a>
+    </nav>
 
-    <div id="details" style="margin-top: 50px;">
-        <h1 id="det-name" style="font-size: 5rem; line-height: 0.9;"></h1>
+    <div id="details">
+        <h1 id="det-name" style="font-family: 'Orbitron'; font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 30px;"></h1>
         
         <div class="gallery" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: 500px; margin: 40px 0;">
-            <img id="img1" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
+            <img id="img1" style="width:100%; height:100%; object-fit:cover; border-radius:10px; border:1px solid #222;">
             <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 20px;">
-                <img id="img2" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
-                <img id="img3" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
+                <img id="img2" style="width:100%; height:100%; object-fit:cover; border-radius:10px; border:1px solid #222;">
+                <img id="img3" style="width:100%; height:100%; object-fit:cover; border-radius:10px; border:1px solid #222;">
             </div>
         </div>
 
-        <div style="background: var(--card); padding: 50px; border-radius: 30px; border: 1px solid #222;">
-            <h2 style="color: var(--neon); margin-bottom: 20px;">ХАРАКТЕРИСТИКИ</h2>
-            <p id="det-desc" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
-            <div style="display: flex; gap: 40px; font-size: 1.5rem; font-weight: 900;">
-                <div>МОЩНОСТЬ: <span id="det-hp"></span></div>
-                <div>МАКС. СКОРОСТЬ: <span id="det-speed"></span></div>
+        <div class="quiz-card-premium" style="display: block; text-align: left;">
+            <h2 style="font-family: 'Orbitron'; color: var(--neon); margin-bottom: 20px;">ХАРАКТЕРИСТИКИ</h2>
+            <p id="det-desc" style="font-size: 1.2rem; margin-bottom: 30px; color: #ccc;"></p>
+            
+            <div style="display: flex; gap: 60px; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: 0.7rem; color: #555; letter-spacing: 2px;">МОЩНОСТЬ</div>
+                    <div id="det-hp" style="font-family: 'Orbitron'; font-size: 2rem; font-weight: 900;"></div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: #555; letter-spacing: 2px;">МАКС. СКОРОСТЬ</div>
+                    <div id="det-speed" style="font-family: 'Orbitron'; font-size: 2rem; font-weight: 900;"></div>
+                </div>
             </div>
-            <button class="btn-neon" style="width: 100%; margin-top: 40px; padding: 25px;">ЗАБРОНИРОВАТЬ</button>
+            
+            <button class="btn-neon-large" style="width: 100%; margin-top: 40px;">ЗАБРОНИРОВАТЬ</button>
         </div>
     </div>
+
+    <footer style="margin-top: 100px; text-align: center; border-top: 1px solid #111; padding-top: 40px;">
+        <p style="font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px;">
+            МОСКВА-СИТИ | БАШНЯ ФЕДЕРАЦИЯ ВОСТОК
+        </p>
+    </footer>
 
     <script src="script.js"></script>
     <script>
@@ -40,7 +59,8 @@
             document.getElementById('det-desc').innerText = car.desc;
             document.getElementById('det-hp').innerText = car.hp;
             document.getElementById('det-speed').innerText = car.speed;
-            // Подгружаем 3 фото
+            
+            // Подгружаем 3 фото из массива в script.js
             document.getElementById('img1').src = 'images/' + car.imgs[0];
             document.getElementById('img2').src = 'images/' + car.imgs[1];
             document.getElementById('img3').src = 'images/' + car.imgs[2];
