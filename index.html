@@ -2,169 +2,57 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOLLY CARS | Premium Rental</title>
-    <!-- Правильное подключение шрифтов -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@900&family=Oswald:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <nav>
-        <div class="logo">NOLLY <span>CARS</span></div>
-        <div class="nav-links">
-            <a href="#catalog">КАТАЛОГ</a>
-            <a href="#about">КОНТАКТЫ</a>
-        </div>
-    </nav>
+    <nav><div class="logo">NOLLY <span>CARS</span></div></nav>
 
     <header class="hero">
         <h1>NOLLY CARS</h1>
-        <p class="hero-sub">ЭКСПРЕСС-АРЕНДА ПРЕМИАЛЬНЫХ АВТО В МОСКВА-СИТИ</p>
+        <p class="hero-sub">АРЕНДА ПРЕМИАЛЬНЫХ АВТО В МОСКВА-СИТИ</p>
         <div class="trust-container">
             <div class="trust-item"><span>⚡</span> ПОДАЧА 30 МИН</div>
             <div class="trust-item"><span>🛡️</span> КАСКО ВКЛЮЧЕНО</div>
-            <div class="trust-item"><span>🏁</span> ТЕХОСМОТР ПЕРЕД ВЫЕЗДОМ</div>
         </div>
     </header>
 
     <section class="quiz-section">
         <div class="quiz-card">
-            <h3>ПОДОБРАТЬ ИДЕАЛЬНЫЙ АВТО?</h3>
-            <p>Ответьте на 3 вопроса и получите рекомендацию от ИИ.</p>
-            <!-- Вызов функции открытия Квиза -->
-            <button class="btn-neon" onclick="openQuiz()">НАЧАТЬ ТЕСТ</button>
+            <h2>ПОДОБРАТЬ ИДЕАЛЬНЫЙ АВТО?</h2>
+            <button class="btn-neon" onclick="openQuiz()" style="margin-top:20px;">НАЧАТЬ ТЕСТ</button>
         </div>
     </section>
 
-    <main id="catalog" class="catalog-section">
-        <h2 class="section-title">НАШ АВТОПАРК</h2>
-        <div id="cars-grid" class="grid"></div>
-    </main>
+    <main id="cars-grid" class="grid"></main>
 
-    <footer id="about">
+    <footer>
         <div class="footer-wrap">
-            <div class="f-box">
-                <h3>ГДЕ МЫ?</h3>
-                <p>Москва-Сити, Башня Федерация<br>Пресненская наб., 12</p>
-            </div>
-            <div class="f-box">
-                <h3>СВЯЗЬ</h3>
-                <p>+7 (495) 000-01-01<br>drive@nollycars.ru</p>
-            </div>
+            <div class="f-box"><h3>ГДЕ МЫ?</h3><p>Пресненская наб., 12</p></div>
+            <div class="f-box"><h3>СВЯЗЬ</h3><p>+7 (495) 000-01-01</p></div>
         </div>
     </footer>
 
-    <!-- КВИЗ (ВСПЛЫВАЮЩЕЕ ОКНО) -->
-    <div id="quiz-modal" class="ai-chat-window" style="height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); bottom: auto;">
-        <div class="ai-chat-header">
-            <strong>ПОДБОР ИДЕАЛЬНОГО АВТО</strong>
-            <span onclick="closeQuiz()" style="cursor:pointer">✕</span>
-        </div>
-        <div id="quiz-body" class="ai-chat-body" style="min-height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <p id="quiz-question">Готовы найти свой автомобиль?</p>
-            <div id="quiz-options" style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 20px;">
-                <button class="btn-neon" style="font-size: 0.9rem; padding: 10px;" onclick="startRealQuiz()">НАЧАТЬ ТЕСТ</button>
-            </div>
+    <!-- Модалки -->
+    <div id="quiz-modal">
+        <div class="quiz-card" style="width: 90%; max-width: 400px;">
+            <p id="quiz-question" style="font-size: 1.5rem; margin-bottom: 20px;"></p>
+            <div id="quiz-options" style="display:flex; flex-direction:column;"></div>
         </div>
     </div>
 
-    <!-- КНОПКА ИИ БОТА -->
-    <div class="ai-messenger" onclick="toggleAiChat()">
-        <div class="ai-status"></div>
-        <span>AI</span>
-    </div>
-
-    <!-- ОКНО ЧАТА ИИ -->
+    <div class="ai-messenger" onclick="toggleAiChat()">AI</div>
     <div id="ai-window" class="ai-chat-window">
-        <div class="ai-chat-header">
-            <strong>NOLLY AI ASSISTANT</strong>
-            <span onclick="toggleAiChat()" style="cursor:pointer">✕</span>
-        </div>
-        <div class="ai-chat-body" id="chat-messages">
-            <p>Выберите вопрос, который вас интересует:</p>
-            <div class="quick-questions">
-                <button onclick="aiAnswer('Как забронировать авто?', 'Для бронирования выберите авто в каталоге и нажмите кнопку «Забронировать». Менеджер свяжется с вами для подтверждения.')">Как забронировать?</button>
-                <button onclick="aiAnswer('Где забрать машину?', 'Мы находимся в Москва-Сити, Башня Федерация. Также возможна доставка в любую точку Сити.')">Где забрать?</button>
-                <button onclick="aiAnswer('Какие нужны документы?', 'Для аренды необходим паспорт и водительское удостоверение. Стаж от 3-х лет.')">Документы?</button>
-                <button onclick="aiAnswer('Есть ли КАСКО?', 'Да, все наши автомобили застрахованы по КАСКО. Ваша безопасность — наш приоритет.')">Про КАСКО</button>
-                <button onclick="aiAnswer('Можно ли с водителем?', 'Да, мы предоставляем услугу аренды с водителем. Стоимость уточняйте.')">С водителем?</button>
-                <button onclick="aiAnswer('Как оплатить?', 'Принимаем наличные, карты и оплату по счету.')">Оплата</button>
-            </div>
-            <div id="ai-response" style="margin-top: 20px; color: var(--neon); font-size: 0.9rem; border-top: 1px solid #333; padding-top: 10px; display: none;"></div>
+        <div class="ai-chat-header">NOLLY AI <span onclick="toggleAiChat()" style="cursor:pointer">✕</span></div>
+        <div class="ai-chat-body">
+            <p style="margin-bottom:15px;">Выберите вопрос:</p>
+            <button onclick="aiAnswer('КАСКО', 'Все авто застрахованы.')" style="width:100%; margin-bottom:5px; background:#222; border:1px solid #444; color:#fff; padding:10px; cursor:pointer;">Про КАСКО</button>
+            <button onclick="aiAnswer('Оплата', 'Нал, карты, счет.')" style="width:100%; background:#222; border:1px solid #444; color:#fff; padding:10px; cursor:pointer;">Оплата</button>
+            <div id="ai-response" style="margin-top:15px; color:var(--neon); display:none;"></div>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Главная функция отрисовки
-        window.onload = function() {
-            if(typeof renderCatalog === 'function') renderCatalog();
-        };
-
-        // ЛОГИКА ЧАТА
-        function toggleAiChat() {
-            const win = document.getElementById('ai-window');
-            win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function aiAnswer(q, a) {
-            const resp = document.getElementById('ai-response');
-            resp.style.display = 'block';
-            resp.innerHTML = `<strong>${q}</strong><br><br>${a}`;
-        }
-
-        // ЛОГИКА ТЕСТА (КВИЗ)
-        const quizData = [
-            { q: "Для каких целей авто?", a: ["Бизнес-встреча", "Свидание", "Трек / Драйв"] },
-            { q: "Какой бюджет на сутки?", a: ["До 30,000₽", "30,000 - 100,000₽", "Без ограничений"] },
-            { q: "Ваш стиль вождения?", a: ["Спокойный", "Умеренный", "Агрессивный"] }
-        ];
-        let currentStep = 0;
-
-        function openQuiz() { document.getElementById('quiz-modal').style.display = 'flex'; }
-        function closeQuiz() { document.getElementById('quiz-modal').style.display = 'none'; currentStep = 0; }
-
-        function startRealQuiz() {
-            currentStep = 0;
-            showStep();
-        }
-
-        function showStep() {
-            const qObj = quizData[currentStep];
-            document.getElementById('quiz-question').innerText = qObj.q;
-            const optDiv = document.getElementById('quiz-options');
-            optDiv.innerHTML = '';
-            qObj.a.forEach(option => {
-                const btn = document.createElement('button');
-                btn.className = "btn-neon";
-                btn.style = "font-size: 0.8rem; padding: 10px; font-family:'Inter'; font-weight:900;";
-                btn.innerText = option;
-                btn.onclick = nextStep;
-                optDiv.appendChild(btn);
-            });
-        }
-
-        function nextStep() {
-            currentStep++;
-            if (currentStep < quizData.length) {
-                showStep();
-            } else {
-                finishQuiz();
-            }
-        }
-
-        function finishQuiz() {
-            const results = ["Lamborghini Revuelto", "Bentley Continental GT", "Ferrari Purosangue", "BMW 5-Series"];
-            const randomCar = results[Math.floor(Math.random() * results.length)];
-            document.getElementById('quiz-question').innerText = "ВАШ ВЫБОР:";
-            document.getElementById('quiz-options').innerHTML = `
-                <h2 style="color:var(--neon); font-family:'Oswald'; font-style:italic; margin: 15px 0;">${randomCar}</h2>
-                <button class="btn-neon" onclick="closeQuiz()">В КАТАЛОГ</button>
-            `;
-        }
-    </script>
 </body>
 </html>

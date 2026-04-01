@@ -3,59 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOLLY CARS | Характеристики</title>
+    <title>Детали | NOLLY CARS</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <nav>
-        <div class="logo">NOLLY <span>CARS</span></div>
-        <a href="index.html" class="btn-neon" style="padding: 12px 25px; font-size: 0.9rem; width: auto; margin:0;">← КАТАЛОГ</a>
-    </nav>
+<body style="padding: 40px 8%;">
+    <a href="index.html" class="btn-neon" style="text-decoration:none;">< НАЗАД</a>
 
-    <div class="car-container">
-        <h1 id="det-name" class="main-title"></h1>
+    <div id="details" style="margin-top: 50px;">
+        <h1 id="det-name" style="font-size: 5rem; line-height: 0.9;"></h1>
         
-        <div class="gallery-wrap">
-            <img id="img1" src="" alt="Photo 1">
-            <div class="side-imgs">
-                <img id="img2" src="" alt="Photo 2">
-                <img id="img3" src="" alt="Photo 3">
+        <div class="gallery" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: 500px; margin: 40px 0;">
+            <img id="img1" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
+            <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 20px;">
+                <img id="img2" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
+                <img id="img3" style="width:100%; height:100%; object-fit:cover; border-radius:20px; border:2px solid #222;">
             </div>
         </div>
 
-        <div class="details-box">
-            <div class="desc-text">
-                <h2>ХАРАКТЕРИСТИКИ</h2>
-                <p id="det-desc"></p>
-                <p>Мы предоставляем лучший сервис в Москва-Сити. Автомобиль будет доставлен к вашему подъезду в течение 30 минут в идеальном состоянии. Полная страховка КАСКО уже включена в стоимость. Никаких скрытых платежей, только удовольствие от вождения.</p>
-                <p style="opacity: 0.5; font-size: 0.9rem;">* Для аренды данного класса авто требуется стаж вождения от 3-х лет и депозит.</p>
+        <div style="background: var(--card); padding: 50px; border-radius: 30px; border: 1px solid #222;">
+            <h2 style="color: var(--neon); margin-bottom: 20px;">ХАРАКТЕРИСТИКИ</h2>
+            <p id="det-desc" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+            <div style="display: flex; gap: 40px; font-size: 1.5rem; font-weight: 900;">
+                <div>МОЩНОСТЬ: <span id="det-hp"></span></div>
+                <div>МАКС. СКОРОСТЬ: <span id="det-speed"></span></div>
             </div>
-            
-            <div class="specs-list">
-                <div class="spec-item"><span class="spec-label">МОЩНОСТЬ</span><div id="det-hp"></div></div>
-                <div class="spec-item"><span class="spec-label">СКОРОСТЬ</span><div id="det-speed"></div></div>
-                <div class="spec-item"><span class="spec-label">УСЛОВИЯ</span><div>30 МИН ПОДАЧА</div></div>
-            </div>
+            <button class="btn-neon" style="width: 100%; margin-top: 40px; padding: 25px;">ЗАБРОНИРОВАТЬ</button>
         </div>
-
-        <button class="btn-neon" onclick="alert('Заявка отправлена менеджеру!')">ЗАБРОНИРОВАТЬ СЕЙЧАС</button>
     </div>
 
     <script src="script.js"></script>
     <script>
-        window.onload = function() {
-            const carId = localStorage.getItem('currentCarId');
-            const car = carData.find(c => c.id === carId);
-            if (car) {
-                document.getElementById('det-name').innerText = car.name;
-                document.getElementById('det-desc').innerText = car.desc;
-                document.getElementById('det-hp').innerText = car.hp;
-                document.getElementById('det-speed').innerText = car.speed;
-                document.getElementById('img1').src = 'images/' + car.imgs[0];
-                document.getElementById('img2').src = 'images/' + car.imgs[1];
-                document.getElementById('img3').src = 'images/' + car.imgs[2];
-            }
-        };
+        const carId = localStorage.getItem('currentCarId');
+        const car = carData.find(c => c.id === carId);
+        if (car) {
+            document.getElementById('det-name').innerText = car.name;
+            document.getElementById('det-desc').innerText = car.desc;
+            document.getElementById('det-hp').innerText = car.hp;
+            document.getElementById('det-speed').innerText = car.speed;
+            // Подгружаем 3 фото
+            document.getElementById('img1').src = 'images/' + car.imgs[0];
+            document.getElementById('img2').src = 'images/' + car.imgs[1];
+            document.getElementById('img3').src = 'images/' + car.imgs[2];
+        }
     </script>
 </body>
 </html>
