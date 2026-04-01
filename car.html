@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали автомобиля | NOLLY CARS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="padding: 40px 10%;">
+    <button class="btn-neon" onclick="window.location.href='index.html'">← НАЗАД В КАТАЛОГ</button>
+
+    <div id="details-content" style="margin-top: 50px;">
+        <h1 id="det-name" style="font-size: 4.5rem; margin-bottom: 30px;"></h1>
+        
+        <!-- Галерея 3 фото -->
+        <div class="gallery" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: 500px;">
+            <img id="img1" src="" style="width:100%; height:100%; object-fit:cover;">
+            <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 20px;">
+                <img id="img2" src="" style="width:100%; height:100%; object-fit:cover;">
+                <img id="img3" src="" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; background: var(--navy); padding: 40px; border-radius: 4px;">
+            <h2 style="color: var(--neon-blue)">ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ</h2>
+            <p id="det-desc" style="margin: 20px 0; font-size: 1.2rem; color: #ccc;"></p>
+            <div style="display: flex; gap: 50px; font-size: 1.5rem; font-weight: bold; font-family: 'Oswald';">
+                <div id="det-hp"></div>
+                <div id="det-speed"></div>
+            </div>
+            <button class="btn-neon" style="width: 100%; margin-top: 40px; padding: 25px; font-size: 1.2rem;">ЗАБРОНИРОВАТЬ СЕЙЧАС</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const selectedId = localStorage.getItem('currentCarId');
+        const car = carData.find(c => c.id === selectedId);
+
+        if (car) {
+            document.getElementById('det-name').innerText = car.name;
+            document.getElementById('det-desc').innerText = car.desc;
+            document.getElementById('det-hp').innerText = "МОЩНОСТЬ: " + car.hp;
+            document.getElementById('det-speed').innerText = "МАКС. СКОРОСТЬ: " + car.speed;
+            document.getElementById('img1').src = 'images/' + car.imgs[0];
+            document.getElementById('img2').src = 'images/' + car.imgs[1];
+            document.getElementById('img3').src = 'images/' + car.imgs[2];
+        }
+    </script>
+</body>
+</html>

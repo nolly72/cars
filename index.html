@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOLLY CARS | Power & Speed</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NOLLY <span>CARS</span></div>
+        <div class="nav-links">
+            <a href="#catalog">КАТАЛОГ</a>
+            <a href="#about">КОНТАКТЫ</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 class="glitch-text">NOLLY CARS</h1>
+        <p class="hero-sub">ЭКСПРЕСС-АРЕНДА ПРЕМИАЛЬНЫХ АВТО В МОСКВА-СИТИ</p>
+        
+        <div class="trust-container">
+            <div class="trust-item"><span>⚡</span> ПОДАЧА 30 МИН</div>
+            <div class="trust-item"><span>🛡️</span> КАСКО ВКЛЮЧЕНО</div>
+            <div class="trust-item"><span>🏁</span> ТЕХОСМОТР ПЕРЕД ВЫЕЗДОМ</div>
+        </div>
+    </header>
+
+    <section class="quiz-section">
+        <div class="quiz-card">
+            <h3>ПОДОБРАТЬ ИДЕАЛЬНЫЙ АВТО?</h3>
+            <p>Ответьте на 3 вопроса и получите рекомендацию от ИИ.</p>
+            <button class="btn-neon" onclick="alert('Запуск ИИ-подбора...')">НАЧАТЬ ТЕСТ</button>
+        </div>
+    </section>
+
+    <main id="catalog">
+        <h2 class="section-title">НАШ АВТОПАРК</h2>
+        <div id="cars-grid" class="grid">
+            <!-- Сюда JS отрисует машины -->
+        </div>
+    </main>
+
+    <footer id="about">
+        <div class="footer-wrap">
+            <div class="f-box">
+                <h3>ГДЕ МЫ?</h3>
+                <p>Москва-Сити, Башня Федерация<br>Пресненская наб., 12</p>
+            </div>
+            <div class="f-box">
+                <h3>СВЯЗЬ</h3>
+                <p>+7 (495) 000-01-01<br>drive@nollycars.ru</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="ai-button" onclick="alert('ИИ Консультант: Какая марка вам ближе: BMW или Mercedes?')">AI ЧАТ</div>
+
+    <script src="script.js"></script>
+    <script>renderCatalog();</script>
+</body>
+</html>
