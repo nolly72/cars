@@ -7,17 +7,18 @@
     --white: #ffffff;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 html { scroll-behavior: smooth; }
 
 body {
     background: radial-gradient(circle at top, #1a1c2c, var(--bg));
     color: var(--white);
     font-family: 'Inter', sans-serif;
+    font-weight: 900; /* ВЕСЬ ТЕКСТ ЖИРНЫЙ ПО УМОЛЧАНИЮ */
     overflow-x: hidden;
 }
 
-/* Сверхжирные заголовки */
+/* Шрифты для заголовков */
 h1, h2, h3, .logo, .btn-neon, .spec-label { 
     font-family: 'Oswald', sans-serif; 
     text-transform: uppercase; 
@@ -26,47 +27,56 @@ h1, h2, h3, .logo, .btn-neon, .spec-label {
 }
 
 /* Навигация */
-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; }
-.logo { font-size: 2rem; letter-spacing: 1px; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; }
+.logo { font-size: 2.2rem; letter-spacing: 1px; }
 .logo span { color: var(--neon); }
 
-/* Главная: Сетка авто */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 40px 8%; }
-.car-card { background: var(--card); padding: 15px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-.car-card:hover { border-color: var(--neon); transform: translateY(-5px); }
-.car-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
-.car-card h3 { font-size: 1.6rem; margin: 15px 0 10px; }
-.card-meta { display: flex; justify-content: space-between; font-weight: 900; }
+/* Главная: Сетка */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; padding: 40px 8%; }
+.car-card { 
+    background: var(--card); 
+    padding: 20px; 
+    border-radius: 15px; /* ОКРУГЛЕНИЕ */
+    border: 2px solid rgba(255,255,255,0.05); 
+    cursor: pointer; 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+.car-card:hover { border-color: var(--neon); transform: scale(1.03); }
+.car-card img { width: 100%; height: 230px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+.car-card h3 { font-size: 1.8rem; margin-bottom: 10px; line-height: 1; }
+
+.card-meta { display: flex; justify-content: space-between; align-items: center; }
+.price-tag { font-size: 1.1rem; color: var(--white); }
+.hp-tag { background: var(--neon); color: #000; padding: 4px 10px; border-radius: 6px; font-size: 0.9rem; }
 
 /* СТРАНИЦА АВТО (car.html) */
-.car-container { padding: 40px 8%; max-width: 1300px; margin: 0 auto; }
-.main-title { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1; margin-bottom: 30px; }
+.car-container { padding: 40px 8%; max-width: 1400px; margin: 0 auto; }
+.main-title { font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; }
 
-/* Галерея: Всегда ровная */
-.gallery-wrap { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; height: 550px; margin-bottom: 40px; }
-.gallery-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #222; }
-.side-imgs { display: grid; grid-template-rows: 1fr 1fr; gap: 15px; }
+.gallery-wrap { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: 550px; margin-bottom: 40px; }
+.gallery-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; border: 2px solid rgba(255,255,255,0.1); }
+.side-imgs { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; }
 
-/* Контент страницы авто */
-.details-box { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; background: var(--card); padding: 40px; border-radius: 12px; }
-.desc-text h2 { font-size: 2.2rem; color: var(--neon); margin-bottom: 20px; }
-.desc-text p { font-size: 1.1rem; font-weight: 600; line-height: 1.7; margin-bottom: 15px; color: #ccc; }
+.details-box { display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; background: var(--card); padding: 50px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.05); }
+.desc-text h2 { font-size: 3rem; color: var(--neon); margin-bottom: 25px; }
+.desc-text p { font-size: 1.2rem; line-height: 1.6; margin-bottom: 20px; color: #eee; }
 
-.specs-list { border-left: 3px solid var(--neon); padding-left: 30px; display: flex; flex-direction: column; gap: 25px; }
-.spec-item { font-size: 1.4rem; font-weight: 900; }
-.spec-label { display: block; font-size: 0.75rem; color: var(--neon); letter-spacing: 2px; margin-bottom: 5px; }
+.specs-list { border-left: 5px solid var(--neon); padding-left: 40px; display: flex; flex-direction: column; gap: 30px; justify-content: center; }
+.spec-item { font-size: 1.8rem; line-height: 1.1; }
+.spec-label { display: block; font-size: 0.8rem; color: var(--neon); letter-spacing: 3px; margin-bottom: 8px; }
 
 .btn-neon { 
-    background: var(--neon); color: #000; padding: 20px; font-size: 1.3rem; 
-    border: none; width: 100%; cursor: pointer; transition: 0.3s; margin-top: 30px; 
+    background: var(--neon); color: #000; padding: 25px; font-size: 1.5rem; 
+    border: none; width: 100%; cursor: pointer; transition: 0.3s; margin-top: 40px; 
+    border-radius: 12px;
 }
-.btn-neon:hover { box-shadow: 0 0 30px var(--neon); transform: scale(1.02); }
+.btn-neon:hover { box-shadow: 0 0 40px var(--neon); transform: translateY(-3px); }
 
-/* Адаптив для ТЕЛЕФОНОВ */
-@media (max-width: 850px) {
+/* Мобилки */
+@media (max-width: 900px) {
     .gallery-wrap { grid-template-columns: 1fr; height: auto; }
-    .side-imgs { grid-template-columns: 1fr 1fr; grid-template-rows: none; height: 140px; }
-    .details-box { grid-template-columns: 1fr; padding: 25px; }
-    .specs-list { border-left: none; border-top: 3px solid var(--neon); padding: 25px 0 0; }
-    .car-container { padding: 20px 5%; }
+    .side-imgs { grid-template-columns: 1fr 1fr; grid-template-rows: none; height: 160px; }
+    .details-box { grid-template-columns: 1fr; padding: 30px; }
+    .specs-list { border-left: none; border-top: 5px solid var(--neon); padding: 30px 0 0; }
+    .main-title { font-size: 3.5rem; }
 }

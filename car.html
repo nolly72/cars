@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Детали | NOLLY CARS</title>
+    <title>NOLLY CARS | Характеристики</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
         <div class="logo">NOLLY <span>CARS</span></div>
-        <a href="index.html" class="btn-neon" style="padding: 10px 20px; font-size: 0.8rem; width: auto; margin:0;">← В КАТАЛОГ</a>
+        <a href="index.html" class="btn-neon" style="padding: 12px 25px; font-size: 0.9rem; width: auto; margin:0;">← КАТАЛОГ</a>
     </nav>
 
     <div class="car-container">
         <h1 id="det-name" class="main-title"></h1>
         
         <div class="gallery-wrap">
-            <img id="img1" src="" alt="Main">
+            <img id="img1" src="" alt="Photo 1">
             <div class="side-imgs">
-                <img id="img2" src="" alt="Side 1">
-                <img id="img3" src="" alt="Side 2">
+                <img id="img2" src="" alt="Photo 2">
+                <img id="img3" src="" alt="Photo 3">
             </div>
         </div>
 
@@ -27,18 +27,18 @@
             <div class="desc-text">
                 <h2>ХАРАКТЕРИСТИКИ</h2>
                 <p id="det-desc"></p>
-                <p>Мы предлагаем эксклюзивные условия аренды в самом сердце Москва-Сити. Все наши автомобили проходят ежедневный детейлинг и техническую проверку. Почувствуйте мощь и премиальный комфорт без лишних формальностей.</p>
-                <p style="font-size: 0.9rem; opacity: 0.6;">* Требуется паспорт и водительское удостоверение. Подача в Москва-Сити осуществляется бесплатно в течение 30 минут.</p>
+                <p>Мы предоставляем лучший сервис в Москва-Сити. Автомобиль будет доставлен к вашему подъезду в течение 30 минут в идеальном состоянии. Полная страховка КАСКО уже включена в стоимость. Никаких скрытых платежей, только удовольствие от вождения.</p>
+                <p style="opacity: 0.5; font-size: 0.9rem;">* Для аренды данного класса авто требуется стаж вождения от 3-х лет и депозит.</p>
             </div>
             
             <div class="specs-list">
-                <div class="spec-item"><span class="spec-label">МОЩНОСТЬ</span> <div id="det-hp"></div></div>
-                <div class="spec-item"><span class="spec-label">СКОРОСТЬ</span> <div id="det-speed"></div></div>
-                <div class="spec-item"><span class="spec-label">КАТЕГОРИЯ</span> <div id="det-cat"></div></div>
+                <div class="spec-item"><span class="spec-label">МОЩНОСТЬ</span><div id="det-hp"></div></div>
+                <div class="spec-item"><span class="spec-label">СКОРОСТЬ</span><div id="det-speed"></div></div>
+                <div class="spec-item"><span class="spec-label">УСЛОВИЯ</span><div>30 МИН ПОДАЧА</div></div>
             </div>
         </div>
 
-        <button class="btn-neon" onclick="alert('Заявка принята! Ожидайте звонка менеджера.')">ЗАБРОНИРОВАТЬ</button>
+        <button class="btn-neon" onclick="alert('Заявка отправлена менеджеру!')">ЗАБРОНИРОВАТЬ СЕЙЧАС</button>
     </div>
 
     <script src="script.js"></script>
@@ -46,15 +46,11 @@
         window.onload = function() {
             const carId = localStorage.getItem('currentCarId');
             const car = carData.find(c => c.id === carId);
-
             if (car) {
                 document.getElementById('det-name').innerText = car.name;
                 document.getElementById('det-desc').innerText = car.desc;
                 document.getElementById('det-hp').innerText = car.hp;
                 document.getElementById('det-speed').innerText = car.speed;
-                document.getElementById('det-cat').innerText = car.cat;
-                
-                // ПОДГРУЗКА 3-х РАЗНЫХ ФОТО
                 document.getElementById('img1').src = 'images/' + car.imgs[0];
                 document.getElementById('img2').src = 'images/' + car.imgs[1];
                 document.getElementById('img3').src = 'images/' + car.imgs[2];
